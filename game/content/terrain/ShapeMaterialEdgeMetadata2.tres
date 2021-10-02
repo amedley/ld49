@@ -1,22 +1,24 @@
-[gd_resource type="Resource" load_steps=9 format=2]
+[gd_resource type="Resource" load_steps=11 format=2]
 
 [ext_resource path="res://addons/rmsmartshape/normal_range.gd" type="Script" id=1]
 [ext_resource path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" type="Script" id=2]
 [ext_resource path="res://addons/rmsmartshape/materials/edge_material.gd" type="Script" id=3]
-[ext_resource path="res://assets/terrain/rock.png" type="Texture" id=4]
-[ext_resource path="res://assets/terrain/rock-corner-inner.png" type="Texture" id=5]
-[ext_resource path="res://assets/terrain/rock-corner-outer.png" type="Texture" id=6]
+[ext_resource path="res://assets/terrain/grass-taper-right.png" type="Texture" id=4]
+[ext_resource path="res://assets/terrain/grass-corner-inner.png" type="Texture" id=5]
+[ext_resource path="res://assets/terrain/grass.png" type="Texture" id=6]
+[ext_resource path="res://assets/terrain/grass-corner-outer.png" type="Texture" id=7]
+[ext_resource path="res://assets/terrain/grass-taper-left.png" type="Texture" id=8]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 3 )
-textures = [ ExtResource( 4 ) ]
+textures = [ ExtResource( 6 ) ]
 texture_normals = [  ]
-textures_corner_outer = [ ExtResource( 6 ) ]
+textures_corner_outer = [ ExtResource( 7 ) ]
 textures_corner_inner = [ ExtResource( 5 ) ]
 texture_normals_corner_outer = [  ]
 texture_normals_corner_inner = [  ]
-textures_taper_left = [  ]
-textures_taper_right = [  ]
+textures_taper_left = [ ExtResource( 8 ) ]
+textures_taper_right = [ ExtResource( 4 ) ]
 texture_normals_taper_left = [  ]
 texture_normals_taper_right = [  ]
 use_corner_texture = true
@@ -26,7 +28,7 @@ fit_mode = 1
 [sub_resource type="Resource" id=2]
 script = ExtResource( 1 )
 begin = 0.0
-distance = 360.0
+distance = 181.0
 edgeRendering = Vector2( 0, 0 )
 
 [resource]
@@ -35,6 +37,6 @@ edge_material = SubResource( 1 )
 normal_range = SubResource( 2 )
 weld = true
 render = true
-z_index = -1
+z_index = 1
 z_as_relative = true
 offset = 0.2
