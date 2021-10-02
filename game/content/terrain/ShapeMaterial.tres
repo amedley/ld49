@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://addons/rmsmartshape/materials/shape_material.gd" type="Script" id=1]
+[ext_resource path="res://assets/terrain/fill.png" type="Texture" id=2]
+[ext_resource path="res://content/terrain/ShapeMaterialEdgeMetadata1.tres" type="Resource" id=3]
+[ext_resource path="res://content/terrain/ShapeMaterialEdgeMetadata2.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+_edge_meta_materials = [ ExtResource( 3 ), ExtResource( 4 ) ]
+fill_textures = [ ExtResource( 2 ) ]
+fill_texture_normals = [  ]
+fill_texture_z_index = -10
+fill_mesh_offset = 0.0
+render_offset = 0.0
