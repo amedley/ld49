@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export (int) var initial_jump_speed = 500
+export (int) var initial_jump_speed = 450
 export (int) var movement_speed = 250
 export (int) var gravity_speed = 16
 export (int) var gravity_speed_max = 1000
@@ -10,12 +10,7 @@ var gravity_velocity = Vector2()
 var final_velocity = Vector2()
 var jump_velocity = Vector2()
 var may_jump = false
-
-# TODO:
-# - Spend 1 hour trying to make jump as good as possible (short-hop, full-hop)
-# - You should be able to jump one time *after* walking off a ledge
-# - Animations are working, scale.x = -1 (flip) when facing left
-#   - Any concept of "facing direction?"
+var jump_held = 0
 
 func update_movement_velocity():
   self.movement_velocity = Vector2()
@@ -26,33 +21,65 @@ func update_movement_velocity():
   if Input.is_action_pressed("move_right"):
     self.movement_velocity.x += movement_speed
 
+  var anim = $AnimationPlayer
+  var sprite = $Sprite
+  if self.movement_velocity.x == 0 && anim.current_animation == "run":
+    anim.current_animation = "idle"
+  elif self.movement_velocity.x != 0:
+    # update facing direction
+    if sprite.flip_h && self.movement_velocity.x > 0:
+      sprite.flip_h = false
+    elif !sprite.flip_h && self.movement_velocity.x < 0:
+      sprite.flip_h = true
+
+    # show running anim
+    if anim.current_animation == "idle":
+      anim.current_animation = "run"
+
+
 func update_gravity_velocity():
   if self.final_velocity.y < gravity_speed_max:
     self.gravity_velocity += Vector2(0, gravity_speed)
 
 func update_jump_velocity():
-  if jump_velocity.y < 0:
-    jump_velocity.y += 0.5
+  if self.jump_velocity.y < 0:
+    if jump_held > 0 && jump_held <= 15:
+      self.jump_velocity = Vector2(0, -initial_jump_speed)
+      self.gravity_velocity = Vector2()
+    else:
+      self.jump_velocity.y += 10.0
 
-  if jump_velocity.y > 0:
-    jump_velocity.y = 0
+  if self.jump_velocity.y > 0:
+    self.jump_velocity.y = 0
 
-  if may_jump && (Input.is_action_just_pressed("move_up") || Input.is_action_just_pressed("move_jump")):
-    self.jump_velocity = Vector2(0, -initial_jump_speed)
-    self.gravity_velocity = Vector2()
-    self.may_jump = false
+  if self.may_jump && (Input.is_action_just_pressed("move_up") || Input.is_action_just_pressed("move_jump")):
+    self.jump()
 
-func reset_vertical_forces():
-  # reset gravity and jump velocities
+  if Input.is_action_pressed("move_up") || Input.is_action_pressed("move_jump"):
+    if jump_held > 0:
+      jump_held += 1
+  else:
+    jump_held = 0
+
+func jump():
+  self.jump_velocity = Vector2(0, -initial_jump_speed)
+  self.gravity_velocity = Vector2()
+  self.may_jump = false
+  self.jump_held = 1
+  $AnimationPlayer.current_animation = "jump"
+
+func land():
   self.gravity_velocity = Vector2()
   self.jump_velocity = Vector2()
 
-func land():
-  reset_vertical_forces()
-  may_jump = true
+  if !self.may_jump:
+    $AnimationPlayer.current_animation = "land"
+    $AnimationPlayer.queue("idle")
+    self.may_jump = true
+    self.may_jump = true
 
 func bonk():
-  reset_vertical_forces()
+  self.jump_velocity = Vector2()
 
 func combine_forces():
   return self.movement_velocity + self.gravity_velocity + self.jump_velocity
@@ -77,7 +104,6 @@ func _physics_process(dt):
       land()
       # fix final velocity based on reset gravity
       self.final_velocity = combine_forces()
-    #else SLIDE DOWN (implicit)
 
     # bonk check
     if collision_test.normal.y > 0.6:
