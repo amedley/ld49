@@ -8,6 +8,9 @@ var final_velocity = Vector2()
 var jump_velocity = Vector2()
 var may_jump = false
 var jump_held = 0
+var picked_object = null
+var picked_object_parent = null
+var picked_object_height = 0
 
 func update_movement_velocity():
   self.movement_velocity = Vector2()
@@ -44,10 +47,10 @@ func update_jump_velocity():
   if self.jump_velocity.y > 0:
     self.jump_velocity.y = 0
 
-  if self.may_jump && (Input.is_action_just_pressed("move_up") || Input.is_action_just_pressed("move_jump")):
+  if self.may_jump && Input.is_action_just_pressed("move_jump"):
     self.jump()
 
-  if Input.is_action_pressed("move_up") || Input.is_action_pressed("move_jump"):
+  if Input.is_action_pressed("move_jump"):
     if jump_held > 0:
       jump_held += 1
   else:
@@ -82,6 +85,8 @@ func _physics_process(dt):
 
   self.final_velocity = combine_forces()
   var collision_test = self.move_and_collide(final_velocity * dt, true, true, true) # test only!
+  var try_pick_up = !self.picked_object && Input.is_action_just_pressed("pick_up")
+  var did_pick_up = false
   if collision_test:
     # wall check
     if abs(collision_test.normal.x) > 0.85:
@@ -95,6 +100,10 @@ func _physics_process(dt):
       land()
       # fix final velocity based on reset gravity
       self.final_velocity = combine_forces()
+      
+      if try_pick_up:
+        if pick_up(collision_test.collider):
+          did_pick_up = true
 
     # bonk check
     if collision_test.normal.y > 0.6:
@@ -110,3 +119,51 @@ func _physics_process(dt):
     self.final_velocity = self.move_and_slide_with_snap(self.final_velocity, snap, Vector2.UP)
   else:
     self.final_velocity = self.move_and_slide(self.final_velocity, Vector2.UP)
+    
+  var try_put_down = !did_pick_up && picked_object && Input.is_action_just_pressed("put_down")
+  var did_put_down = false
+  if try_put_down:
+    did_put_down = put_down_picked_object()
+  
+  var try_throw = !did_pick_up && !did_put_down && picked_object && Input.is_action_just_pressed("throw")
+  var did_throw = false
+  if try_throw:
+    did_throw = throw_picked_object()
+    
+func pick_up(object):
+  if object.has_method("character_pick_up") && object.character_pick_up(self):
+    self.picked_object = object
+    self.picked_object_height = self.picked_object.get_picked_height() if self.picked_object.has_method("get_picked_height") else 0
+    self.picked_object_parent = object.get_parent()
+    self.picked_object_parent.remove_child(object)
+    self.picked_object.position = Vector2(0, -picked_object_height * 0.5)
+    self.picked_object.rotation = 0
+    $PickedObjectContainer.call_deferred("add_child", self.picked_object)
+    return true
+    
+  return false
+
+func put_down_picked_object():
+  if picked_object.has_method("character_put_down"):
+    self.picked_object.character_put_down(self)
+  
+  $PickedObjectContainer.remove_child(self.picked_object)
+  self.picked_object_parent.add_child(self.picked_object)
+  var feet_offset = $FeetOffset.position
+  self.picked_object.position = self.global_position + feet_offset - Vector2(0, self.picked_object_height * 0.5)
+  self.position -= Vector2(0, self.picked_object_height)
+  self.picked_object = null
+  self.picked_object_parent = null
+  return true
+
+func throw_picked_object():
+  if picked_object.has_method("character_throw"):
+    self.picked_object.character_throw(self)
+  
+  $PickedObjectContainer.remove_child(self.picked_object)
+  self.picked_object_parent.add_child(self.picked_object)
+  var container_offset = $PickedObjectContainer.position
+  self.picked_object.global_position = self.global_position + container_offset - Vector2(0, self.picked_object_height * 0.5)
+  self.picked_object = null
+  self.picked_object_parent = null
+  return true

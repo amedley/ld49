@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=2]
+[gd_scene load_steps=133 format=2]
 
 [ext_resource path="res://content/terrain/ShapeMaterial.tres" type="Resource" id=1]
 [ext_resource path="res://addons/rmsmartshape/shapes/point_array.gd" type="Script" id=2]
@@ -9,6 +9,17 @@
 [ext_resource path="res://source/utility/Follower.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/utility/PixelPerfectCamera.tscn" type="PackedScene" id=8]
 [ext_resource path="res://source/train/Train.tscn" type="PackedScene" id=9]
+[ext_resource path="res://source/cargo/JunkBar.tscn" type="PackedScene" id=10]
+[ext_resource path="res://source/cargo/JunkCircleLarge.tscn" type="PackedScene" id=11]
+[ext_resource path="res://source/cargo/JunkCircleSmall.tscn" type="PackedScene" id=12]
+[ext_resource path="res://source/cargo/JunkTriangleSmall.tscn" type="PackedScene" id=13]
+[ext_resource path="res://source/cargo/JunkLongThin.tscn" type="PackedScene" id=14]
+[ext_resource path="res://source/cargo/JunkBoxExtraLarge.tscn" type="PackedScene" id=15]
+[ext_resource path="res://source/cargo/JunkBarThin.tscn" type="PackedScene" id=16]
+[ext_resource path="res://source/cargo/JunkBoxSmall.tscn" type="PackedScene" id=17]
+[ext_resource path="res://source/cargo/JunkBoxMedium.tscn" type="PackedScene" id=18]
+[ext_resource path="res://source/cargo/JunkTriangleLarge.tscn" type="PackedScene" id=19]
+[ext_resource path="res://source/cargo/JunkBoxLarge.tscn" type="PackedScene" id=20]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 4 )
@@ -843,7 +854,41 @@ collision_polygon_node_path = NodePath("../../TerrainBody2/CollisionPolygon2D")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TerrainBody2"]
 modulate = Color( 1, 1, 1, 0.3 )
-polygon = PoolVector2Array( 2067.9, -345.54, 2048.52, -386.296, 2042.61, -436.042, 2063.08, -496.376, 2104.14, -531.373, 2207.04, -534.261, 2308.64, -499.667, 2381.29, -424.419, 2330.66, -336.085, 2291.06, -282.406, 2242.76, -244.172, 2160.36, -241.496, 2039.47, -251.196 )
+polygon = PoolVector2Array( 2067.9, -345.54, 2048.52, -386.296, 2042.61, -436.042, 2063.08, -496.376, 2104.14, -531.373, 2207.04, -534.261, 2308.64, -499.667, 2381.28, -424.42, 2330.66, -336.085, 2291.06, -282.406, 2242.76, -244.172, 2160.37, -241.496, 2039.47, -251.195 )
+
+[node name="JunkBar" parent="." instance=ExtResource( 10 )]
+position = Vector2( 460.616, -246.226 )
+collision_layer = 2147483649
+
+[node name="JunkBarThin" parent="." instance=ExtResource( 16 )]
+position = Vector2( 609.613, -286.548 )
+
+[node name="JunkBoxExtraLarge" parent="." instance=ExtResource( 15 )]
+position = Vector2( 801.554, -201.241 )
+
+[node name="JunkBoxLarge" parent="." instance=ExtResource( 20 )]
+position = Vector2( 272.369, -465.237 )
+
+[node name="JunkBoxMedium" parent="." instance=ExtResource( 18 )]
+position = Vector2( 932.882, -131.648 )
+
+[node name="JunkBoxSmall" parent="." instance=ExtResource( 17 )]
+position = Vector2( 1048.5, -87.8723 )
+
+[node name="JunkCircleLarge" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1145.03, -114.811 )
+
+[node name="JunkCircleSmall" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1255.03, -150.73 )
+
+[node name="JunkLongThin" parent="." instance=ExtResource( 14 )]
+position = Vector2( 1381.87, -257.364 )
+
+[node name="JunkTriangleLarge" parent="." instance=ExtResource( 19 )]
+position = Vector2( 1558.09, -186.649 )
+
+[node name="JunkTriangleSmall" parent="." instance=ExtResource( 13 )]
+position = Vector2( 1647.89, -80.0152 )
 
 [node name="CharacterBody" parent="." instance=ExtResource( 6 )]
 position = Vector2( 585.425, -357.38 )
@@ -859,11 +904,11 @@ position = Vector2( 229.852, -71.2719 )
 current = true
 
 [node name="Train" parent="." instance=ExtResource( 9 )]
-position = Vector2( 1186.56, -155.929 )
+position = Vector2( 1073.85, -19.4125 )
 train_links = 4
 spawn_separation = 30
 
 [node name="Train2" parent="." instance=ExtResource( 9 )]
-position = Vector2( 160.321, -336.599 )
+position = Vector2( 423.83, -198.495 )
 train_links = 4
 spawn_separation = 160
