@@ -2,11 +2,8 @@ extends KinematicBody2D
 
 export (int) var initial_jump_speed = 450
 export (int) var movement_speed = 250
-export (int) var gravity_speed = 16
-export (int) var gravity_speed_max = 1000
 
 var movement_velocity = Vector2()
-var gravity_velocity = Vector2()
 var final_velocity = Vector2()
 var jump_velocity = Vector2()
 var may_jump = false
@@ -36,16 +33,11 @@ func update_movement_velocity():
     if anim.current_animation == "idle":
       anim.current_animation = "run"
 
-
-func update_gravity_velocity():
-  if self.final_velocity.y < gravity_speed_max:
-    self.gravity_velocity += Vector2(0, gravity_speed)
-
 func update_jump_velocity():
   if self.jump_velocity.y < 0:
     if jump_held > 0 && jump_held <= 15:
       self.jump_velocity = Vector2(0, -initial_jump_speed)
-      self.gravity_velocity = Vector2()
+      $KinematicGravity2D.reset()
     else:
       self.jump_velocity.y += 10.0
 
@@ -63,30 +55,29 @@ func update_jump_velocity():
 
 func jump():
   self.jump_velocity = Vector2(0, -initial_jump_speed)
-  self.gravity_velocity = Vector2()
+  $KinematicGravity2D.reset()
   self.may_jump = false
   self.jump_held = 1
   $AnimationPlayer.current_animation = "jump"
 
 func land():
-  self.gravity_velocity = Vector2()
+  $KinematicGravity2D.reset()
   self.jump_velocity = Vector2()
 
   if !self.may_jump:
     $AnimationPlayer.current_animation = "land"
     $AnimationPlayer.queue("idle")
     self.may_jump = true
-    self.may_jump = true
 
 func bonk():
   self.jump_velocity = Vector2()
 
 func combine_forces():
-  return self.movement_velocity + self.gravity_velocity + self.jump_velocity
+  return self.movement_velocity + $KinematicGravity2D.velocity + self.jump_velocity
 
 func _physics_process(dt):
   update_movement_velocity()
-  update_gravity_velocity()
+  $KinematicGravity2D.update_velocity(self.final_velocity)
   update_jump_velocity()
 
   self.final_velocity = combine_forces()
@@ -112,4 +103,10 @@ func _physics_process(dt):
       self.final_velocity = combine_forces()
 
   # respond to the final collision
-  self.final_velocity = self.move_and_slide(self.final_velocity, Vector2(0, -1))
+  var snap_length = 50.0
+  var snap = -collision_test.normal * snap_length if collision_test else Vector2.ZERO
+  self.final_velocity += snap
+  if may_jump:
+    self.final_velocity = self.move_and_slide_with_snap(self.final_velocity, snap, Vector2.UP)
+  else:
+    self.final_velocity = self.move_and_slide(self.final_velocity, Vector2.UP)
