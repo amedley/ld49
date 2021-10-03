@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/train/sapling.png" type="Texture" id=1]
+[ext_resource path="res://assets/animation/train/saplings_all_animations.png" type="Texture" id=1]
 [ext_resource path="res://source/train/Sapling.gd" type="Script" id=2]
 [ext_resource path="res://source/physics/KinematicGravity2D.tscn" type="PackedScene" id=3]
 
@@ -10,12 +10,32 @@ points = PoolVector2Array( -40, -50, 40, -50, 20, 50, -20, 50 )
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( -40, -50, 40, -50, 30, 0, -30, 0 )
 
+[sub_resource type="Animation" id=3]
+resource_name = "run"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 13 ]
+}
+
 [node name="Sapling" type="KinematicBody2D"]
 collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+vframes = 2
+hframes = 14
+frame = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -29,3 +49,7 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1"]
 shape = SubResource( 2 )
 one_way_collision_margin = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "run"
+anims/run = SubResource( 3 )
