@@ -90,7 +90,13 @@ func on_state_change(id, old_state, new_state):
     var spawn_amount = game_system.interpret_saplings(new_state) - game_system.interpret_saplings(old_state)
     for train in trains:
       for i in range(0, spawn_amount):
+        var previous = train.saplings[len(train.saplings) - 1]
         train.add_sapling()
+        var next = train.saplings[len(train.saplings) - 1]
+        if previous.stop_moving:
+          previous.stop_moving = false
+          next.stop_moving = true
+        
   elif id == game_system.torch_id:
     var new_size = game_system.interpret_torch(new_state)
     for train in trains:
