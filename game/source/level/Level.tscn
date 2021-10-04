@@ -694,7 +694,7 @@ modulate = Color( 1, 1, 1, 0.3 )
 polygon = PoolVector2Array( 2077.05, -378.098, 2048.73, -386.183, 1759, -378.597, 2063.45, -496.23, 2104.12, -531.473, 2198.86, -530.933, 2245.29, -496.333, 2293.74, -434.201, 2295.88, -395.559, 2272.85, -381.263, 2217.71, -385.323, 2147.59, -389.624, 2114.65, -370.925 )
 
 [node name="TrainSpawner1" type="Node2D" parent="."]
-position = Vector2( 1797.97, 41.9507 )
+position = Vector2( 80.5419, -1.16188 )
 __meta__ = {
 "_editor_description_": "		"
 }
@@ -718,7 +718,7 @@ current = true
 position = Vector2( -252, -76 )
 
 [node name="JunkBar" parent="CargoGroup1" instance=ExtResource( 10 )]
-position = Vector2( 1929.1, -311.714 )
+position = Vector2( 1929.1, -312.491 )
 
 [node name="JunkBarThin" parent="CargoGroup1" instance=ExtResource( 16 )]
 modulate = Color( 0.956863, 0.956863, 0.956863, 1 )
@@ -737,7 +737,7 @@ position = Vector2( 1020.85, -125.215 )
 position = Vector2( 148.508, -58.7484 )
 
 [node name="JunkBoxSmall2" parent="CargoGroup1" instance=ExtResource( 17 )]
-position = Vector2( 702.865, -200.983 )
+position = Vector2( 344.605, 18.9045 )
 
 [node name="JunkLongThin" parent="CargoGroup1" instance=ExtResource( 14 )]
 position = Vector2( 4579.49, -94.4018 )
