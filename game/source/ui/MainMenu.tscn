@@ -20,43 +20,63 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 515.0
-margin_top = 182.0
 margin_right = 764.0
-margin_bottom = 537.0
+margin_bottom = 720.0
 size_flags_horizontal = 4
-size_flags_vertical = 4
 
-[node name="Dummy" type="Control" parent="VBoxContainer"]
-margin_right = 249.0
-margin_bottom = 148.0
-rect_min_size = Vector2( 0, 148 )
+[node name="Divider2" type="Control" parent="VBoxContainer"]
+size_flags_horizontal = 0
+size_flags_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 152.0
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 176.0
 margin_right = 249.0
-margin_bottom = 199.0
+margin_bottom = 350.0
+
+[node name="Divider" type="Control" parent="VBoxContainer/VBoxContainer"]
+margin_right = 249.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer"]
+margin_top = 104.0
+margin_right = 249.0
+margin_bottom = 151.0
 custom_fonts/font = ExtResource( 2 )
 text = "Stumblewood"
 
-[node name="Label2" type="Label" parent="VBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer"]
 modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
-margin_top = 203.0
+margin_top = 155.0
 margin_right = 249.0
-margin_bottom = 222.0
+margin_bottom = 174.0
 custom_fonts/font = ExtResource( 5 )
 text = "Press ENTER to start a new run!"
 align = 1
 
-[node name="Label3" type="Label" parent="VBoxContainer"]
-modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
-margin_top = 226.0
+[node name="Divider" type="Control" parent="VBoxContainer"]
+margin_top = 354.0
+margin_bottom = 354.0
+size_flags_horizontal = 0
+size_flags_vertical = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 530.0
 margin_right = 249.0
-margin_bottom = 355.0
+margin_bottom = 719.0
+custom_constants/margin_bottom = 16
+
+[node name="Label3" type="Label" parent="VBoxContainer/MarginContainer3"]
+modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
+margin_right = 249.0
+margin_bottom = 173.0
+size_flags_vertical = 1
 custom_fonts/font = ExtResource( 5 )
-text = "
+text = "TIP  1:
+Stack cargo on moving saplings to earn DOUBLE cargo bucks at the drop off point!
 
-
-Tip: Stack cargo on moving saplings to earn DOUBLE cargo bucks at the drop off point!"
+TIP  2:
+If your character gets stuck, use Ghost Mode!"
 align = 1
 autowrap = true
 

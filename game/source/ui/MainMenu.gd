@@ -8,6 +8,6 @@ func _process(dt):
 
   opacity_scalar += dt * 1.5
   if opacity_scalar - floor(opacity_scalar) < 0.5:
-    $VBoxContainer/Label2.modulate.a = 0.5
+    $VBoxContainer/VBoxContainer/Label2.modulate.a = 0.5
   else:
-    $VBoxContainer/Label2.modulate.a = 1.0
+    $VBoxContainer/VBoxContainer/Label2.modulate.a = 1.0
