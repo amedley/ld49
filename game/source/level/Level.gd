@@ -20,7 +20,9 @@ func _ready():
       train.name = "TrainNode"
       train.train_links = game_system.interpret_saplings()
       self.add_child_below_node(spawner, train)
-      train.saplings[0].get_node("Torch").size = game_system.interpret_torch()
+      var torch = train.saplings[0].get_node_or_null("Torch")
+      if torch:
+        torch.size = game_system.interpret_torch()
       train.position = spawner.position
       self.trains.append(train)
       self.trains_next_drop_off_index.append(0)

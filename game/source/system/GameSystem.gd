@@ -16,8 +16,8 @@ func new_state(name, initial):
   return num_states - 1
 
 var currency_id: int = new_state("currency", 0)
-var saplings_id: int = new_state("saplings", 5)
-var torch_id: int = new_state("torch", 1)
+var saplings_id: int = new_state("saplings", 1)
+var torch_id: int = new_state("torch", 0)
 
 func _ready():
   pass
@@ -52,3 +52,6 @@ func change_state(id, amount, clamp_min = 0, clamp_max = 999999999):
   if new_state != old_state:
     state[id] = new_state
     emit_signal("on_state_change", id, old_state, new_state)
+
+func get_upgrade_cost(level):
+  return 2000 + (level - 1) * 1500

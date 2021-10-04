@@ -1,5 +1,7 @@
 extends Node2D
 
+onready var game_system = get_node("/root/GameSystem")
+
 var sapling_scene = preload("res://source/train/Sapling.tscn")
 var saplings = []
 
@@ -13,7 +15,7 @@ var jostle_hard_stop = 45
 
 func _ready():
   for i in range(0, train_links):
-    add_sapling(i == 0)
+    add_sapling(game_system.state[game_system.torch_id] > 0 && i == 0)
 
 func add_sapling(torch = false):
     var sapling = sapling_scene.instance()
