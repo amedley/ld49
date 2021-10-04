@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://theme.tres" type="Theme" id=1]
 [ext_resource path="res://content/fonts/Alice40.tres" type="DynamicFont" id=2]
+[ext_resource path="res://source/ui/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://content/fonts/Alice20.tres" type="DynamicFont" id=4]
+[ext_resource path="res://content/fonts/Alice16.tres" type="DynamicFont" id=5]
 
 [node name="MainMenu" type="MarginContainer"]
 margin_right = 1280.0
@@ -9,15 +12,142 @@ margin_bottom = 720.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 515.0
-margin_top = 336.0
+margin_top = 313.0
 margin_right = 764.0
-margin_bottom = 383.0
+margin_bottom = 406.0
 size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Dummy" type="Control" parent="VBoxContainer"]
+margin_right = 249.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 0, 19 )
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 23.0
+margin_right = 249.0
+margin_bottom = 70.0
 custom_fonts/font = ExtResource( 2 )
 text = "Stumblewood"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
+margin_top = 74.0
+margin_right = 249.0
+margin_bottom = 93.0
+custom_fonts/font = ExtResource( 5 )
+text = "Press ENTER to start a new run!"
+align = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+custom_constants/margin_right = 16
+custom_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 899.0
+margin_top = 596.0
+margin_right = 1264.0
+margin_bottom = 704.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+custom_constants/separation = 12
+
+[node name="Names" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 232.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/Names"]
+margin_right = 232.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 4 )
+text = "Movement"
+align = 2
+
+[node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/Names"]
+margin_top = 28.0
+margin_right = 232.0
+margin_bottom = 52.0
+custom_fonts/font = ExtResource( 4 )
+text = "Pick Up / Put Down Cargo"
+align = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Names"]
+margin_top = 56.0
+margin_right = 232.0
+margin_bottom = 80.0
+custom_fonts/font = ExtResource( 4 )
+text = "Ghost Mode"
+align = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/Names"]
+margin_top = 84.0
+margin_right = 232.0
+margin_bottom = 108.0
+custom_fonts/font = ExtResource( 4 )
+text = "Throw Cargo"
+align = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 244.0
+margin_right = 246.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 2, 0 )
+custom_constants/margin_right = 0
+custom_constants/margin_top = 8
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 4
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer/MarginContainer"]
+margin_top = 8.0
+margin_right = 2.0
+margin_bottom = 104.0
+color = Color( 0.466667, 0.466667, 0.466667, 1 )
+
+[node name="Inputs" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 258.0
+margin_right = 365.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label5" type="Label" parent="MarginContainer/HBoxContainer/Inputs"]
+margin_right = 107.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 4 )
+text = "A, D, SPACE"
+align = 1
+
+[node name="Label6" type="Label" parent="MarginContainer/HBoxContainer/Inputs"]
+margin_top = 28.0
+margin_right = 107.0
+margin_bottom = 52.0
+custom_fonts/font = ExtResource( 4 )
+text = "S"
+align = 1
+
+[node name="Label7" type="Label" parent="MarginContainer/HBoxContainer/Inputs"]
+margin_top = 56.0
+margin_right = 107.0
+margin_bottom = 80.0
+custom_fonts/font = ExtResource( 4 )
+text = "G"
+align = 1
+
+[node name="Label8" type="Label" parent="MarginContainer/HBoxContainer/Inputs"]
+margin_top = 84.0
+margin_right = 107.0
+margin_bottom = 108.0
+custom_fonts/font = ExtResource( 4 )
+text = "W"
+align = 1

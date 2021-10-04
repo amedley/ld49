@@ -11,7 +11,7 @@ points = PoolVector2Array( -37, -48, 32, -48, 20, 48, -20, 48 )
 [sub_resource type="CapsuleShape2D" id=2]
 height = 56.0
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 length = 1.5
 loop = true
 tracks/0/type = "value"
@@ -53,7 +53,7 @@ one_way_collision_margin = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "run"
-anims/run = SubResource( 4 )
+anims/run = SubResource( 3 )
 
 [node name="Torch" parent="." instance=ExtResource( 4 )]
 position = Vector2( -31, -48 )
