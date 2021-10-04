@@ -6,7 +6,7 @@
 [ext_resource path="res://content/fonts/Alice20.tres" type="DynamicFont" id=4]
 [ext_resource path="res://content/fonts/Alice16.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/misc/titlescreen2.png" type="Texture" id=6]
-[ext_resource path="res://assets/audio/redtop_ver2_draft2.ogg" type="AudioStream" id=7]
+[ext_resource path="res://assets/audio/untitled_song01b.ogg" type="AudioStream" id=7]
 
 [node name="MainMenu" type="MarginContainer"]
 margin_right = 1280.0
