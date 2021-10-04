@@ -10,7 +10,7 @@
 [ext_resource path="res://source/utility/PixelPerfectCamera.tscn" type="PackedScene" id=8]
 [ext_resource path="res://source/level/Level.gd" type="Script" id=9]
 [ext_resource path="res://source/cargo/JunkBar.tscn" type="PackedScene" id=10]
-[ext_resource path="res://source/level/Checkpoint.tscn" type="PackedScene" id=11]
+[ext_resource path="res://source/level/DropOffPoint.tscn" type="PackedScene" id=11]
 [ext_resource path="res://source/cargo/JunkLongThin.tscn" type="PackedScene" id=14]
 [ext_resource path="res://source/cargo/JunkBoxExtraLarge.tscn" type="PackedScene" id=15]
 [ext_resource path="res://source/cargo/JunkBarThin.tscn" type="PackedScene" id=16]
@@ -699,7 +699,7 @@ __meta__ = {
 "_editor_description_": "		"
 }
 
-[node name="Checkpoint1" parent="." instance=ExtResource( 11 )]
+[node name="DropOffPoint1" parent="." instance=ExtResource( 11 )]
 
 [node name="CharacterBody" parent="." instance=ExtResource( 6 )]
 position = Vector2( 2113.76, -61.3521 )

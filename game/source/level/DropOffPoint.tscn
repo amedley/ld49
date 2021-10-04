@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/terrain/checkpoint-platform.png" type="Texture" id=1]
-[ext_resource path="res://assets/terrain/checkpoint-beam.png" type="Texture" id=2]
-[ext_resource path="res://source/level/Checkpoint.gd" type="Script" id=3]
+[ext_resource path="res://assets/terrain/drop-off-point-platform.png" type="Texture" id=1]
+[ext_resource path="res://assets/terrain/drop-off-point-beam.png" type="Texture" id=2]
+[ext_resource path="res://source/level/DropOffPoint.gd" type="Script" id=3]
 
-[node name="Checkpoint" type="Sprite"]
+[node name="DropOffPoint" type="Sprite"]
 position = Vector2( 2393.76, 115.583 )
 texture = ExtResource( 1 )
 script = ExtResource( 3 )

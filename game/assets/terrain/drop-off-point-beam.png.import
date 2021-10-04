@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/checkpoint-platform.png-829f7a5742467375f63eb9f0cf7b21bc.stex"
+path="res://.import/drop-off-point-beam.png-71d17811050f8a0072784bdd7c53aac1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/terrain/checkpoint-platform.png"
-dest_files=[ "res://.import/checkpoint-platform.png-829f7a5742467375f63eb9f0cf7b21bc.stex" ]
+source_file="res://assets/terrain/drop-off-point-beam.png"
+dest_files=[ "res://.import/drop-off-point-beam.png-71d17811050f8a0072784bdd7c53aac1.stex" ]
 
 [params]
 
