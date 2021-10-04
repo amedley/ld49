@@ -89,7 +89,7 @@ modulate = Color( 0.65098, 0.65098, 0.65098, 1 )
 margin_top = 51.0
 margin_right = 608.0
 margin_bottom = 110.0
-text = "Grows the torch on the back of your Sapling train, preventing Cargo from falling off the back!"
+text = "Grows the torch on the back of your Sapling train, preventing Junk from falling off the back!"
 autowrap = true
 
 [node name="Control3" type="Control" parent="MarginContainer/HBoxContainer"]

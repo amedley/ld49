@@ -163,7 +163,7 @@ position = Vector2( 56, 9 )
 margin_right = 110.0
 margin_bottom = 19.0
 custom_fonts/font = ExtResource( 4 )
-text = "CARGO BUCKS"
+text = "JUNK BUCKS"
 align = 2
 
 [node name="Label4" type="Label" parent="MarginContainer2/MarginContainer/HBoxContainer/Names"]
