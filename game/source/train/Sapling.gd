@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 onready var torch = $Torch
+onready var game_system = get_node("/root/GameSystem")
 
 export (int) var movement_speed = 50
 
@@ -85,14 +86,15 @@ func _physics_process(dt):
     var snap = -contact.normal * snap_length
     self.final_velocity = contact_edge_dir * movement_speed + snap
 
-    if stop_moving:
-      self.final_velocity = Vector2.ZERO
-    elif abs(self.jostle_multiplier - 1.0) > 0.00001:
-      # jostling
-      self.final_velocity = self.final_velocity * self.jostle_multiplier
-    elif abs(self.closeness_multiplier - 1.0) > 0.00001:
-      # closeness
-      self.final_velocity = self.final_velocity * self.closeness_multiplier
+    if !game_system.is_win:
+      if stop_moving:
+        self.final_velocity = Vector2.ZERO
+      elif abs(self.jostle_multiplier - 1.0) > 0.00001:
+        # jostling
+        self.final_velocity = self.final_velocity * self.jostle_multiplier
+      elif abs(self.closeness_multiplier - 1.0) > 0.00001:
+        # closeness
+        self.final_velocity = self.final_velocity * self.closeness_multiplier
 
     # slide
     if !self.final_velocity.is_equal_approx(Vector2.ZERO):
@@ -100,8 +102,8 @@ func _physics_process(dt):
 
     # animation playback speed
     $AnimationPlayer.playback_speed = clamp((self.final_velocity.length() * 2) / movement_speed, 0.0, 1.0)
-  
+
   if self.in_upgrade_area > -1:
     self.last_upgrade_area = self.in_upgrade_area
-    
+
   self.just_entered_upgrade_area = false

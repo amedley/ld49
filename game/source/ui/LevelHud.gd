@@ -39,7 +39,7 @@ func render_on_screen_message(message, color):
   if self.on_screen_message.modulate.a >= 0.0:
     self.on_screen_message_queue.append([message, color])
   else:
-    self.on_screen_message_timer = 5.0
+    self.on_screen_message_timer = 3.5
     on_screen_message.modulate = Color(color.r, color.g, color.b, 1.0)
     on_screen_message.text = message
 
@@ -90,4 +90,4 @@ func render_win_restart():
   $CenterContainer2.visible = true
 
 func on_win_restart():
-  game_system.restart_run()
+  game_system.reset_run()
