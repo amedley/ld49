@@ -6,4 +6,4 @@
 "saplings",
 ]]
 script = ExtResource( 2 )
-spawn_separation = 10
+train_links = 1

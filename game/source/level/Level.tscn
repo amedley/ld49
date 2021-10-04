@@ -8,7 +8,7 @@
 [ext_resource path="res://source/character/CharacterBody.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/utility/Follower.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/utility/PixelPerfectCamera.tscn" type="PackedScene" id=8]
-[ext_resource path="res://source/train/Train.tscn" type="PackedScene" id=9]
+[ext_resource path="res://source/level/Level.gd" type="Script" id=9]
 [ext_resource path="res://source/cargo/JunkBar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/terrain/checkpoint-beam.png" type="Texture" id=11]
 [ext_resource path="res://assets/terrain/checkpoint-platform.png" type="Texture" id=12]
@@ -658,6 +658,7 @@ _constraints = {
 _next_key = 14
 
 [node name="Level" type="Node2D"]
+script = ExtResource( 9 )
 
 [node name="TerrainBody1" type="StaticBody2D" parent="."]
 
@@ -703,6 +704,9 @@ collision_polygon_node_path = NodePath("../../TerrainBody2/CollisionPolygon2D")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TerrainBody2"]
 modulate = Color( 1, 1, 1, 0.3 )
 polygon = PoolVector2Array( 2077.05, -378.098, 2046.71, -384.64, 2042.61, -436.042, 2063.08, -496.376, 2104.14, -531.373, 2207.04, -534.261, 2308.64, -499.667, 2382.53, -424.061, 2333.57, -372.701, 2272.63, -382.062, 2217.71, -385.323, 2147.59, -389.624, 2114.65, -370.925 )
+
+[node name="TrainSpawner" type="Node2D" parent="."]
+position = Vector2( -72, -272 )
 
 [node name="JunkBar" parent="." instance=ExtResource( 10 )]
 position = Vector2( 916.431, -60.2483 )
