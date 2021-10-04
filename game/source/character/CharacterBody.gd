@@ -11,6 +11,8 @@ var jump_held = 0
 var picked_object = null
 var picked_object_parent = null
 var picked_object_height = 0
+var ghost_enabled: bool = false
+var ghost_time: float = 0.0
 
 func update_movement_velocity():
   self.movement_velocity = Vector2()
@@ -100,7 +102,7 @@ func _physics_process(dt):
       land()
       # fix final velocity based on reset gravity
       self.final_velocity = combine_forces()
-      
+
       if try_pick_up:
         if pick_up(collision_test.collider):
           did_pick_up = true
@@ -119,17 +121,25 @@ func _physics_process(dt):
     self.final_velocity = self.move_and_slide_with_snap(self.final_velocity, snap, Vector2.UP)
   else:
     self.final_velocity = self.move_and_slide(self.final_velocity, Vector2.UP)
-    
+
   var try_put_down = !did_pick_up && picked_object && Input.is_action_just_pressed("put_down")
   var did_put_down = false
   if try_put_down:
     did_put_down = put_down_picked_object()
-  
+
   var try_throw = !did_pick_up && !did_put_down && picked_object && Input.is_action_just_pressed("throw")
   var did_throw = false
   if try_throw:
     did_throw = throw_picked_object()
-    
+
+  var try_toggle_ghost = !did_pick_up && !did_put_down && !try_throw && Input.is_action_just_pressed("toggle_ghost")
+  var did_toggle_ghost = false
+  if try_toggle_ghost:
+    if !ghost_enabled:
+      did_toggle_ghost = enable_ghost()
+    else:
+      did_toggle_ghost = disable_ghost()
+
 func pick_up(object):
   if object.has_method("character_pick_up") && object.character_pick_up(self):
     self.picked_object = object
@@ -140,13 +150,13 @@ func pick_up(object):
     self.picked_object.rotation = 0
     $PickedObjectContainer.call_deferred("add_child", self.picked_object)
     return true
-    
+
   return false
 
 func put_down_picked_object():
   if picked_object.has_method("character_put_down"):
     self.picked_object.character_put_down(self)
-  
+
   $PickedObjectContainer.remove_child(self.picked_object)
   self.picked_object_parent.add_child(self.picked_object)
   var feet_offset = $FeetOffset.position
@@ -159,7 +169,7 @@ func put_down_picked_object():
 func throw_picked_object():
   if picked_object.has_method("character_throw"):
     self.picked_object.character_throw(self)
-  
+
   $PickedObjectContainer.remove_child(self.picked_object)
   self.picked_object_parent.add_child(self.picked_object)
   var container_offset = $PickedObjectContainer.position
@@ -167,3 +177,25 @@ func throw_picked_object():
   self.picked_object = null
   self.picked_object_parent = null
   return true
+
+func enable_ghost():
+  if picked_object:
+    put_down_picked_object()
+
+  self.ghost_enabled = true
+  self.modulate.a = 0.5
+  self.modulate.r = 3.0
+  self.modulate.g = 3.0
+  self.modulate.b = 3.0
+  self.set_collision_layer_bit(2, false)
+  return true
+
+func disable_ghost():
+  self.ghost_enabled = false
+  self.modulate.a = 1.0
+  self.modulate.r = 1.0
+  self.modulate.g = 1.0
+  self.modulate.b = 1.0
+  self.set_collision_layer_bit(2, true)
+  return true
+

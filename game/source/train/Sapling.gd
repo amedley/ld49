@@ -66,7 +66,7 @@ func _physics_process(dt):
   var snap_length = 50
   if !contact:
     $KinematicGravity2D.update_velocity(self.final_velocity)
-    self.move_and_slide_with_snap($KinematicGravity2D.velocity, Vector2.DOWN * snap_length, Vector2.UP)
+    self.final_velocity = self.move_and_slide_with_snap($KinematicGravity2D.velocity, Vector2.DOWN * snap_length, Vector2.UP)
   else:
     $KinematicGravity2D.reset()
     var contact_edge_dir = contact.normal.rotated(PI*0.5)

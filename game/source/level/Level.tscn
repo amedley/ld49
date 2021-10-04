@@ -858,7 +858,6 @@ polygon = PoolVector2Array( 2067.9, -345.54, 2048.52, -386.296, 2042.61, -436.04
 
 [node name="JunkBar" parent="." instance=ExtResource( 10 )]
 position = Vector2( 460.616, -246.226 )
-collision_layer = 2147483649
 
 [node name="JunkBarThin" parent="." instance=ExtResource( 16 )]
 position = Vector2( 609.613, -286.548 )

@@ -5,6 +5,17 @@ var final_velocity: Vector2 = Vector2()
 var throw_velocity: Vector2 = Vector2()
 var initial_throw_speed: float = 500
 
+func is_cargo():
+  return true
+
+func contact_hash(contact):
+  if !contact:
+    return "-1_-1"
+  return str(contact.collider_id) + "_" + str(contact.collider_shape_index)
+
+var previous_sapling_hash = contact_hash(null)
+var current_sapling_hash = contact_hash(null)
+
 func combine_forces():
   return $KinematicGravity2D.velocity + throw_velocity
 
@@ -22,25 +33,96 @@ func _physics_process(dt):
   else:
     throw_velocity = Vector2.ZERO
 
-  $KinematicGravity2D.update_velocity(self.final_velocity)
-  self.final_velocity = combine_forces()
+  var collision_count = get_slide_count()
 
-  var collision_test = self.move_and_collide(final_velocity * dt, true, true, true) # test only!
-  if collision_test:
-    # similar gravity/sliding to CharacterBody.gd
-    if collision_test.normal.y < -0.6:
+  # look for sapling contacts
+  var contact = null
+  var found_previous_contact = null
+  var found_current_contact = null
+  for i in range(0, collision_count):
+    var c = get_slide_collision(i)
+    if c.collider.name.find("SaplingPlatform") > -1:
+      var h = contact_hash(c)
+      if h == previous_sapling_hash:
+        found_previous_contact = c
+      elif h == current_sapling_hash:
+        found_current_contact = c
+      else:
+        # done!
+        contact = c
+        break
+
+  if !contact && found_current_contact:
+    # stick to current
+    contact = found_current_contact
+
+  if !contact && found_previous_contact:
+    # switch to previous
+    contact = found_previous_contact
+
+  if contact:
+    var contact_hash = contact_hash(contact)
+    if contact_hash != self.current_sapling_hash:
+      self.previous_sapling_hash = self.current_sapling_hash
+      self.current_sapling_hash = contact_hash
+
+  var contact_is_sapling = contact != null
+
+  if !contact:
+    # fallback: pick that faces upward the most
+    var most_up: float = 1.0
+    for i in range(0, collision_count):
+      var c = get_slide_collision(i)
+      if c.normal.y < most_up:
+        # this is not terrain
+        most_up = c.normal.y
+        contact = c
+
+  var did_move = false
+  var rotate = false
+  if !contact:
+    # no contact, just gravity
+    $KinematicGravity2D.update_velocity(self.final_velocity)
+    self.final_velocity = combine_forces()
+    self.final_velocity = self.move_and_slide(self.final_velocity, Vector2.UP)
+    did_move = true
+  else:
+    if !contact_is_sapling:
+      # the contact is not a sapling, check landing
+      if contact.normal.y < -0.6:
+        # landed, rotate + snap
+        rotate = true
+        $KinematicGravity2D.reset()
+        throw_velocity = Vector2.ZERO
+        self.final_velocity = combine_forces() # should be zero
+        self.final_velocity = self.move_and_slide(contact.collider_velocity, Vector2.UP)
+        did_move = true
+      else:
+        # not landed, no snap
+        $KinematicGravity2D.update_velocity(self.final_velocity)
+        self.final_velocity = combine_forces()
+        self.final_velocity = self.move_and_slide(self.final_velocity, Vector2.UP)
+        did_move = true
+
+    else:
+      # contact is a sapling
       $KinematicGravity2D.reset()
-      self.throw_velocity = Vector2.ZERO
-      # fix final velocity based on force changes
-      self.final_velocity = combine_forces()
+      throw_velocity = Vector2.ZERO
+      self.final_velocity = combine_forces() # should be zero
 
-      var contact_edge_dir = collision_test.normal.rotated(PI*0.5)
-      self.rotation = lerp(self.rotation, contact_edge_dir.angle(), dt * 2.0)
+      # snap if the contact is from above the platform
+      if contact.normal.y < -0.08:
+        # landed, rotate + snap
+        rotate = true
+        self.final_velocity = self.move_and_slide(contact.collider_velocity, Vector2.UP)
+        did_move = true
 
-  var snap_length = 50.0
-  var snap = -collision_test.normal * snap_length if collision_test else Vector2.ZERO
-  self.final_velocity += snap
-  self.final_velocity = self.move_and_slide_with_snap(self.final_velocity, snap, Vector2.UP)
+  if rotate:
+    var contact_edge_dir = contact.normal.rotated(PI*0.5)
+    self.rotation = lerp(self.rotation, contact_edge_dir.angle(), dt * 2.0)
+
+  if !did_move:
+    self.final_velocity = self.move_and_slide(Vector2.ZERO, Vector2.UP)
 
 func character_pick_up(character):
   disabled = true

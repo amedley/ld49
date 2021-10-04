@@ -14,10 +14,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_left = 539.0
+margin_left = 515.0
 margin_top = 336.0
-margin_right = 741.0
+margin_right = 764.0
 margin_bottom = 383.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 2 )
-text = "UNSTABLE"
+text = "Stumblewood"
