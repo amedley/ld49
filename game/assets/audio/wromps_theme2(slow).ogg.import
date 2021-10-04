@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/wromps_theme2(slow).ogg-5ebe3184bd1a2596b391a75c6540eb8f.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/wromps_theme2(slow).ogg"
+dest_files=[ "res://.import/wromps_theme2(slow).ogg-5ebe3184bd1a2596b391a75c6540eb8f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

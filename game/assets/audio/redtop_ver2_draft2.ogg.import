@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/redtop_ver2_draft2.ogg-ddb048d7aa372970cefccab31f2b2c2c.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/redtop_ver2_draft2.ogg"
+dest_files=[ "res://.import/redtop_ver2_draft2.ogg-ddb048d7aa372970cefccab31f2b2c2c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

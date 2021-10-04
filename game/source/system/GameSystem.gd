@@ -15,9 +15,9 @@ func new_state(name, initial):
   state.append(initial)
   return num_states - 1
 
-var currency_id: int = new_state("currency", 20000)
+var currency_id: int = new_state("currency", 800000)
 var saplings_id: int = new_state("saplings", 1)
-var torch_id: int = new_state("torch", 0)
+var torch_id: int = new_state("torch", 4)
 
 var is_start: bool = false
 var is_reset: bool = false
