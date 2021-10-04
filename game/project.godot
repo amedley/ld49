@@ -179,7 +179,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GameSystem="*res://source/system/game_system.gd"
+GameSystem="*res://source/system/GameSystem.gd"
 
 [display]
 

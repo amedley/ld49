@@ -9,6 +9,7 @@
 [node name="MainMenu" type="MarginContainer"]
 margin_right = 1280.0
 margin_bottom = 720.0
+rect_min_size = Vector2( 1280, 720 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
@@ -19,32 +20,45 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 515.0
-margin_top = 313.0
+margin_top = 182.0
 margin_right = 764.0
-margin_bottom = 406.0
+margin_bottom = 537.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Dummy" type="Control" parent="VBoxContainer"]
 margin_right = 249.0
-margin_bottom = 19.0
-rect_min_size = Vector2( 0, 19 )
+margin_bottom = 148.0
+rect_min_size = Vector2( 0, 148 )
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 23.0
+margin_top = 152.0
 margin_right = 249.0
-margin_bottom = 70.0
+margin_bottom = 199.0
 custom_fonts/font = ExtResource( 2 )
 text = "Stumblewood"
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
 modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
-margin_top = 74.0
+margin_top = 203.0
 margin_right = 249.0
-margin_bottom = 93.0
+margin_bottom = 222.0
 custom_fonts/font = ExtResource( 5 )
 text = "Press ENTER to start a new run!"
 align = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
+margin_top = 226.0
+margin_right = 249.0
+margin_bottom = 355.0
+custom_fonts/font = ExtResource( 5 )
+text = "
+
+
+Tip: Stack cargo on moving saplings to earn DOUBLE cargo bucks at the drop off point!"
+align = 1
+autowrap = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_right = 1280.0
