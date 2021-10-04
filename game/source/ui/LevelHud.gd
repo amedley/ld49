@@ -8,7 +8,7 @@ func _ready():
   for id in range(0, len(state_nodes)):
     sync_state(id)
 
-func on_state_change(id, old_value, new_value):
+func on_state_change(id, old_state, new_state):
   # TODO(amedley): something that looks cooler?
   sync_state(id)
 
