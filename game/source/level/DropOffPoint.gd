@@ -20,10 +20,10 @@ func on_sapling_drop_off_body_entered(body):
 
 func on_grounded_drop_off_body_entered(body):
   body.update_drop_off_priority(1, self.global_position)
-  
+
 func on_upgrade_body_entered(body):
   body.in_upgrade_area = self.drop_off_index
   body.just_entered_upgrade_area = true
-  
+
 func on_upgrade_body_exited(body):
   body.in_upgrade_area = -1

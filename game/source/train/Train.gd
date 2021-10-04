@@ -46,11 +46,11 @@ func update_closeness():
 func _physics_process(dt):
   update_jostling()
   update_closeness()
-  if !character_has_upgrade_window:
+  if !character_has_upgrade_window && !game_system.is_win:
     self.energy -= dt
-    
+
   get_node("/root/Level").level_hud.render_energy(str(int(self.energy)))
-  
-  if self.energy <= 0.1:
+
+  if self.energy <= 0.1 && !game_system.is_win:
     game_system.reset_run()
 

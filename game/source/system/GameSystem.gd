@@ -40,6 +40,9 @@ func reset_run():
   get_tree().change_scene_to(level_scene)
   pass
 
+func win():
+  self.is_win = true
+
 func interpret(id, value = null):
   if value == null:
     return interpret(id, state[id])

@@ -91,6 +91,11 @@ func _physics_process(dt):
     for i in range(0, len(trains)):
       var train = trains[i]
       train.character_has_upgrade_window = true
+    if character_in_upgrade_area_index == len(drop_offs) - 1:
+      game_system.win()
+      self.level_hud.render_on_screen_message("You have cleansed our woods of this poisonous Waste...", Color.greenyellow)
+      self.level_hud.render_on_screen_message("...Thank you.", Color.green)
+      self.level_hud.render_win_restart()
   else:
     level_hud.hide_upgrade_ui()
     for i in range(0, len(trains)):
