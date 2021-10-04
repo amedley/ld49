@@ -67,3 +67,10 @@ func show_upgrade_ui():
 func hide_upgrade_ui():
   if $UpgradeUICenterContainer.visible:
     $UpgradeUICenterContainer.visible = false
+
+func render_energy(energy: String):
+  $MarginContainer3/MarginContainer/HBoxContainer/State/Label.text = energy
+  if int(energy) <= 10:
+    $MarginContainer3/MarginContainer/HBoxContainer/State/Label.modulate = Color.red
+  else:
+    $MarginContainer3/MarginContainer/HBoxContainer/State/Label.modulate = Color.greenyellow

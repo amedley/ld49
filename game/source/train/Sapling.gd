@@ -10,6 +10,7 @@ var stop_moving: bool = false
 var in_upgrade_area: int = -1
 var last_upgrade_area: int = -1
 var just_entered_upgrade_area: bool = false
+var stop_for_drop_off_index: int = -1
 
 func contact_hash(contact):
   if !contact:

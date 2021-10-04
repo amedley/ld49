@@ -15,14 +15,28 @@ func new_state(name, initial):
   state.append(initial)
   return num_states - 1
 
-var currency_id: int = new_state("currency", 50000)
+var currency_id: int = new_state("currency", 20000)
 var saplings_id: int = new_state("saplings", 1)
 var torch_id: int = new_state("torch", 0)
+
+var is_start: bool = false
+var is_reset: bool = false
+var is_win: bool = false
 
 func _ready():
   pass
 
 func start_run():
+  self.is_start = true
+  self.is_reset = false
+  self.is_win = false
+  get_tree().change_scene_to(level_scene)
+  pass
+
+func reset_run():
+  self.is_start = false
+  self.is_reset = true
+  self.is_win = false
   get_tree().change_scene_to(level_scene)
   pass
 

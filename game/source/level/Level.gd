@@ -47,9 +47,14 @@ func _ready():
       self.drop_offs.append(child)
       self.drop_off_exits.append(child.position.x + 250)
 
-  self.level_hud.render_on_screen_message("The Waste from the Sky, it poisons our woods...", Color.greenyellow)
-  self.level_hud.render_on_screen_message("...guide my Saplings and dispose of it, they will bear the load...", Color.greenyellow)
-  self.level_hud.render_on_screen_message("...press on until you reach the Source... Good luck.", Color.greenyellow)
+  if game_system.is_start:
+    self.level_hud.render_on_screen_message("The Waste from the Sky, it poisons our woods...", Color.greenyellow)
+    self.level_hud.render_on_screen_message("...guide my Saplings and dispose of it, they will bear the load...", Color.greenyellow)
+    self.level_hud.render_on_screen_message("...press on until you reach the Source... Good luck.", Color.greenyellow)
+  elif game_system.is_reset:
+    self.level_hud.render_on_screen_message("Starting over isn't so bad...", Color.greenyellow)
+    self.level_hud.render_on_screen_message("...my saplings will only get stronger...", Color.greenyellow)
+    self.level_hud.render_on_screen_message("...please, guide them to the Source of this poisonous Waste.", Color.greenyellow)
 
 func get_next_drop_off_index(position):
   var result = 0
@@ -67,9 +72,9 @@ func _physics_process(dt):
   var rendered_abandon = false
   var push_character_left = false
   for i in range(0, len(trains)):
-    var saplings = trains[i].saplings
+    var train = trains[i]
+    var saplings = train.saplings
     var drop_off_index = max(trains_next_drop_off_index[i], get_next_drop_off_index(saplings[0].global_position))
-    trains_next_drop_off_index[i] = drop_off_index
     saplings[len(saplings) - 1].stop_moving = drop_off_index > character_next_drop_off_index
     if character_in_upgrade_area_index > saplings[0].last_upgrade_area:
       push_character_left = true
@@ -83,8 +88,14 @@ func _physics_process(dt):
 
   if character_in_upgrade_area_index > -1 && !push_character_left:
     level_hud.show_upgrade_ui()
+    for i in range(0, len(trains)):
+      var train = trains[i]
+      train.character_has_upgrade_window = true
   else:
     level_hud.hide_upgrade_ui()
+    for i in range(0, len(trains)):
+      var train = trains[i]
+      train.character_has_upgrade_window = false
 
 func on_state_change(id, old_state, new_state):
   if id == game_system.saplings_id:
@@ -97,7 +108,6 @@ func on_state_change(id, old_state, new_state):
         if previous.stop_moving:
           previous.stop_moving = false
           next.stop_moving = true
-
   elif id == game_system.torch_id:
     var new_size = game_system.interpret_torch(new_state)
     for train in trains:

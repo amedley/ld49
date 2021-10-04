@@ -7,12 +7,12 @@ var saplings = []
 
 export (int) var train_links = 10
 export (int) var jostle_ease = 35
-export (int) var spawn_separation = 90
 export (int) var closeness_ease = 40
 
 var closeness_hard_go = 80
 var jostle_hard_stop = 45
-var energy: float = 30
+var energy: float = 30.5
+var character_has_upgrade_window: bool = -1
 
 func _ready():
   for i in range(0, train_links):
@@ -21,7 +21,7 @@ func _ready():
 func add_sapling(torch = false):
     var sapling = sapling_scene.instance()
     add_child(sapling)
-    sapling.position.x = (saplings[len(saplings) - 1].position.x if len(saplings) > 0 else 0) + spawn_separation
+    sapling.position = saplings[len(saplings) - 1].position if len(saplings) > 0 else Vector2.ZERO
     saplings.append(sapling)
     if !torch:
       sapling.remove_child(sapling.get_node("Torch"))
@@ -46,5 +46,11 @@ func update_closeness():
 func _physics_process(dt):
   update_jostling()
   update_closeness()
-  self.energy -= dt
+  if !character_has_upgrade_window:
+    self.energy -= dt
+    
+  get_node("/root/Level").level_hud.render_energy(str(int(self.energy)))
+  
+  if self.energy <= 0.1:
+    game_system.reset_run()
 
