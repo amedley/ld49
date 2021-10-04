@@ -49,13 +49,13 @@ func _ready():
       self.drop_off_exits.append(child.position.x + 250)
 
   if game_system.is_start:
-    self.level_hud.render_on_screen_message("The Waste from the Sky, it poisons our woods...", Color.greenyellow)
+    self.level_hud.render_on_screen_message("The Junk from the Sky, it poisons our woods...", Color.greenyellow)
     self.level_hud.render_on_screen_message("...guide my Saplings and dispose of it, they will bear the load...", Color.greenyellow)
     self.level_hud.render_on_screen_message("...press on until you reach the Source... Good luck.", Color.greenyellow)
   elif game_system.is_reset:
     self.level_hud.render_on_screen_message("Starting over isn't so bad...", Color.greenyellow)
     self.level_hud.render_on_screen_message("...my saplings will only get stronger...", Color.greenyellow)
-    self.level_hud.render_on_screen_message("...please, guide them to the Source of this poisonous Waste.", Color.greenyellow)
+    self.level_hud.render_on_screen_message("...please, guide them to the Source of this poisonous Junk.", Color.greenyellow)
 
 func get_next_drop_off_index(position):
   var result = 0
@@ -95,7 +95,7 @@ func _physics_process(dt):
     if character_in_upgrade_area_index == len(drop_offs) - 1 && !did_ceremony:
       did_ceremony = true
       game_system.win()
-      self.level_hud.render_on_screen_message("You have cleansed our woods of this poisonous Waste...", Color.greenyellow)
+      self.level_hud.render_on_screen_message("You have cleansed our woods of this poisonous Junk...", Color.greenyellow)
       self.level_hud.render_on_screen_message("...Thank you.", Color.green)
       self.level_hud.render_win_restart()
   else:
