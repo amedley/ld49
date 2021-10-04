@@ -18,7 +18,7 @@ func _ready():
     saplings.append(sapling)
     sapling.position.x = i * spawn_separation
     if i > 0:
-      sapling.remove_child(sapling.get_node("StopGap"))
+      sapling.remove_child(sapling.get_node("Torch"))
 
 func update_jostling():
   for i in range(0, len(self.saplings) - 1):
