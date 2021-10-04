@@ -8,7 +8,7 @@
 [ext_resource path="res://source/character/CharacterBody.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/utility/Follower.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/utility/PixelPerfectCamera.tscn" type="PackedScene" id=8]
-[ext_resource path="res://source/train/Train.tscn" type="PackedScene" id=9]
+[ext_resource path="res://source/level/Level.gd" type="Script" id=9]
 [ext_resource path="res://source/cargo/JunkBar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/terrain/checkpoint-beam.png" type="Texture" id=11]
 [ext_resource path="res://assets/terrain/checkpoint-platform.png" type="Texture" id=12]
@@ -658,6 +658,7 @@ _constraints = {
 _next_key = 14
 
 [node name="Level" type="Node2D"]
+script = ExtResource( 9 )
 
 [node name="TerrainBody1" type="StaticBody2D" parent="."]
 
@@ -683,7 +684,7 @@ position = Vector2( -16.1533, 0 )
 polygon = PoolVector2Array( 5445.67, 2985.16, -603.886, 3046.3, -573.08, -1.79845, 236.651, -0.463142, 310.433, 60.6243, 648.875, 62.3406, 826.622, -35.8813, 1210.69, -33.1146, 1644.75, 126.775, 2054.97, 125.949, 2020.26, 829.474, 2113.08, 828.924, 2079.59, 126.435, 2603.65, 127.815, 2706.14, 100.166, 2824.07, 147.775, 2970.14, 101.261, 3080.99, 154.19, 3200.4, 97.8222, 3329.17, 168.218, 3463.86, 46.9644, 3652.36, 106.831, 3908.23, -21.7278, 5225.5, -11.5105, 5501.18, -88.7504, 5927.92, -489.563, 6345.05, -662.834, 6665.9, -672.202, 9789.9, -668.354 )
 
 [node name="TerrainBody2" type="StaticBody2D" parent="."]
-position = Vector2( -313, 220 )
+position = Vector2( -313, 211 )
 
 [node name="SS2D_Shape_Closed" type="Node2D" parent="TerrainBody2"]
 script = ExtResource( 5 )
@@ -703,6 +704,9 @@ collision_polygon_node_path = NodePath("../../TerrainBody2/CollisionPolygon2D")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TerrainBody2"]
 modulate = Color( 1, 1, 1, 0.3 )
 polygon = PoolVector2Array( 2077.05, -378.098, 2046.71, -384.64, 2042.61, -436.042, 2063.08, -496.376, 2104.14, -531.373, 2207.04, -534.261, 2308.64, -499.667, 2382.53, -424.061, 2333.57, -372.701, 2272.63, -382.062, 2217.71, -385.323, 2147.59, -389.624, 2114.65, -370.925 )
+
+[node name="TrainSpawner" type="Node2D" parent="."]
+position = Vector2( -72, -272 )
 
 [node name="JunkBar" parent="." instance=ExtResource( 10 )]
 position = Vector2( 916.431, -60.2483 )

@@ -13,12 +13,15 @@ var jostle_hard_stop = 45
 
 func _ready():
   for i in range(0, train_links):
+    add_sapling(i == 0)
+
+func add_sapling(torch = false):
     var sapling = sapling_scene.instance()
     add_child(sapling)
+    sapling.position.x = (saplings[len(saplings) - 1].position.x if len(saplings) > 0 else 0) + spawn_separation
     saplings.append(sapling)
-    sapling.position.x = i * spawn_separation
-    if i > 0:
-      sapling.remove_child(sapling.get_node("StopGap"))
+    if !torch:
+      sapling.remove_child(sapling.get_node("Torch"))
 
 func update_jostling():
   for i in range(0, len(self.saplings) - 1):
