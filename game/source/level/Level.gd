@@ -11,6 +11,7 @@ var drop_off_exits: Array = []
 var character_next_drop_off_index: int = 0
 var trains_next_drop_off_index: Array = []
 var world_hud: CanvasLayer = null
+var level_hud: Control = null
 
 func _ready():
   for child in self.get_children():
@@ -29,7 +30,8 @@ func _ready():
 
   var level_hud_layer = CanvasLayer.new()
   level_hud_layer.layer = 10
-  level_hud_layer.add_child(level_hud_scene.instance())
+  self.level_hud = level_hud_scene.instance()
+  level_hud_layer.add_child(level_hud)
   self.add_child(level_hud_layer)
 
   world_hud = CanvasLayer.new()
@@ -41,8 +43,12 @@ func _ready():
 
   for child in self.get_children():
     if child.name.find("DropOffPoint") > -1:
+      child.drop_off_index = len(self.drop_offs)
       self.drop_offs.append(child)
       self.drop_off_exits.append(child.position.x + 250)
+  
+  self.level_hud.render_on_screen_message("The Waste from the Sky, it poisons our woods...", Color.greenyellow)
+  self.level_hud.render_on_screen_message("...guide my Saplings and dispose of it, they will bear the load.", Color.greenyellow)
 
 func get_next_drop_off_index(position):
   var result = 0
@@ -55,11 +61,40 @@ func get_next_drop_off_index(position):
 
 func _physics_process(dt):
   character_next_drop_off_index = get_next_drop_off_index($CharacterBody.position)
+  var character_in_upgrade_area_index = $CharacterBody.in_upgrade_area
+  var character_just_entered_upgrade_area = $CharacterBody.just_entered_upgrade_area
+  var rendered_abandon = false
+  var push_character_left = false
   for i in range(0, len(trains)):
     var saplings = trains[i].saplings
     var drop_off_index = max(trains_next_drop_off_index[i], get_next_drop_off_index(saplings[0].global_position))
     trains_next_drop_off_index[i] = drop_off_index
     saplings[len(saplings) - 1].stop_moving = drop_off_index > character_next_drop_off_index
+    if character_in_upgrade_area_index > saplings[0].last_upgrade_area:
+      push_character_left = true
+      if character_just_entered_upgrade_area && !rendered_abandon:
+        level_hud.render_on_screen_message_once("Please stay near my saplings...", Color.yellow)
+        rendered_abandon = true
+  
+  $CharacterBody.just_entered_upgrade_area = false
+  if push_character_left:
+    $CharacterBody.move_and_slide(Vector2(-$CharacterBody.final_velocity.x, 0), Vector2.UP)
+  
+  if character_in_upgrade_area_index > -1 && !push_character_left:
+    level_hud.show_upgrade_ui()
+  else:
+    level_hud.hide_upgrade_ui()
 
 func on_state_change(id, old_state, new_state):
-  pass
+  if id == game_system.saplings_id:
+    var spawn_amount = game_system.interpret_saplings(new_state) - game_system.interpret_saplings(old_state)
+    for train in trains:
+      for i in range(0, spawn_amount):
+        train.add_sapling()
+  elif id == game_system.torch_id:
+    var new_size = game_system.interpret_torch(new_state)
+    for train in trains:
+      if train.saplings[0].get_node_or_null("Torch") == null:
+        train.saplings[0].add_child(train.saplings[0].torch)
+      train.saplings[0].torch.size = new_size
+    

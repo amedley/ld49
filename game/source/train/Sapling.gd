@@ -1,10 +1,15 @@
 extends KinematicBody2D
 
+onready var torch = $Torch
+
 export (int) var movement_speed = 50
 
 var jostle_multiplier: float = 1.0
 var closeness_multiplier: float = 1.0
 var stop_moving: bool = false
+var in_upgrade_area: int = -1
+var last_upgrade_area: int = -1
+var just_entered_upgrade_area: bool = false
 
 func contact_hash(contact):
   if !contact:
@@ -94,3 +99,8 @@ func _physics_process(dt):
 
     # animation playback speed
     $AnimationPlayer.playback_speed = clamp((self.final_velocity.length() * 2) / movement_speed, 0.0, 1.0)
+  
+  if self.in_upgrade_area > -1:
+    self.last_upgrade_area = self.in_upgrade_area
+    
+  self.just_entered_upgrade_area = false

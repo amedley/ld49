@@ -73,7 +73,7 @@ tracks/0/keys = {
 [sub_resource type="CapsuleShape2D" id=5]
 
 [node name="CharacterBody" type="KinematicBody2D"]
-collision_layer = 5
+collision_layer = 8197
 collision_mask = 2
 script = ExtResource( 1 )
 
