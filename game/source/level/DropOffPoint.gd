@@ -7,12 +7,12 @@ func _ready():
 
   $Beam.z_index = 3
   $Beam.z_as_relative = false
-  
-  $SaplingDropOffBody.connect("area_entered", self, "on_sapling_drop_off_area_entered")
-  $GroundedDropOffBody.connect("area_entered", self, "on_grounded_drop_off_area_entered")
 
-func on_sapling_drop_off_area_entered(body):
-  pass
-  
-func on_grounded_drop_off_area_entered(body):
-  pass
+  $SaplingDropOffBody.connect("body_entered", self, "on_sapling_drop_off_body_entered")
+  $GroundedDropOffBody.connect("body_entered", self, "on_grounded_drop_off_body_entered")
+
+func on_sapling_drop_off_body_entered(body):
+  body.update_drop_off_priority(2, self.global_position)
+
+func on_grounded_drop_off_body_entered(body):
+  body.update_drop_off_priority(1, self.global_position)

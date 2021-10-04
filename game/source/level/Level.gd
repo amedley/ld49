@@ -10,6 +10,7 @@ var drop_offs: Array = []
 var drop_off_exits: Array = []
 var character_next_drop_off_index: int = 0
 var trains_next_drop_off_index: Array = []
+var world_hud: CanvasLayer = null
 
 func _ready():
   for child in self.get_children():
@@ -25,9 +26,14 @@ func _ready():
       self.trains_next_drop_off_index.append(0)
 
   var level_hud_layer = CanvasLayer.new()
-  self.add_child(level_hud_layer)
   level_hud_layer.layer = 10
   level_hud_layer.add_child(level_hud_scene.instance())
+  self.add_child(level_hud_layer)
+
+  world_hud = CanvasLayer.new()
+  world_hud.layer = 9
+  world_hud.follow_viewport_enable = true
+  self.add_child(world_hud)
 
   game_system.connect("on_state_change", self, "on_state_change")
 

@@ -8,8 +8,8 @@
 extents = Vector2( 52, 17 )
 
 [node name="JunkBar" type="KinematicBody2D"]
-collision_layer = 5
-collision_mask = 6
+collision_layer = 6149
+collision_mask = 2147483654
 script = ExtResource( 2 )
 currency_value = 200
 

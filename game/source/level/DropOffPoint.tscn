@@ -30,16 +30,16 @@ collision_mask = 0
 polygon = PoolVector2Array( -147, -3, 146, -3, 152, 1, 168, 1, 198, 22, -198, 22, -169, 1, -153, 1 )
 
 [node name="SaplingDropOffBody" type="Area2D" parent="."]
-collision_layer = 2048
-collision_mask = 0
+collision_layer = 0
+collision_mask = 2048
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SaplingDropOffBody"]
 position = Vector2( 0, -1096 )
 shape = SubResource( 1 )
 
 [node name="GroundedDropOffBody" type="Area2D" parent="."]
-collision_layer = 4096
-collision_mask = 0
+collision_layer = 0
+collision_mask = 4096
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundedDropOffBody"]
 position = Vector2( 0, 904 )

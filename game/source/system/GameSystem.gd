@@ -51,4 +51,4 @@ func change_state(id, amount, clamp_min = 0, clamp_max = 999999999):
   var new_state = clamp(old_state + amount, clamp_min, clamp_max)
   if new_state != old_state:
     state[id] = new_state
-    emit_signal("on_state_change", old_state, new_state)
+    emit_signal("on_state_change", id, old_state, new_state)
