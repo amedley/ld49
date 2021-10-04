@@ -31,10 +31,12 @@ func upgrade_sapling():
     self.update_render()
 
 func update_render():
-  var torch_level = game_system.state[game_system.torch_id]    
+  var torch_level = game_system.state[game_system.torch_id]
   $MarginContainer/HBoxContainer/VBoxContainer/TorchUpgrade.text = "GROW TORCH: $" + str(game_system.get_upgrade_cost(torch_level + 1))
   if torch_level == 0:
     $MarginContainer/HBoxContainer/VBoxContainer/TorchUpgrade.text = $MarginContainer/HBoxContainer/VBoxContainer/TorchUpgrade.text.replace("GROW TORCH", "CREATE TORCH")
     $MarginContainer/HBoxContainer/VBoxContainer/Label.text = $MarginContainer/HBoxContainer/VBoxContainer/Label.text.replace("Grows the", "Creates a")
+  else:
+    $MarginContainer/HBoxContainer/VBoxContainer/Label.text = $MarginContainer/HBoxContainer/VBoxContainer/Label.text.replace("Creates a", "Grows the")
   var sapling_level = game_system.state[game_system.saplings_id]
   $MarginContainer/HBoxContainer/VBoxContainer2/SaplingUpgrade.text = "SPAWN SAPLING: $" + str(game_system.get_upgrade_cost(sapling_level + 1))

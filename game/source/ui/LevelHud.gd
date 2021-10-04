@@ -9,10 +9,14 @@ onready var on_screen_message = get_node("CenterContainer/VBoxContainer/OnScreen
 var on_screen_message_timer: float = 0
 var on_screen_message_queue: Array = []
 
+var opacity_scalar: float = 0.0
+
 func _ready():
   game_system.connect("on_state_change", self, "on_state_change")
   for id in range(0, len(state_nodes)):
     sync_state(id)
+
+  $CenterContainer2/VBoxContainer/ClickToContinueRunning.connect("pressed", self, "on_win_restart")
 
 func on_state_change(id, old_state, new_state):
   sync_state(id)
@@ -22,7 +26,7 @@ func on_state_change(id, old_state, new_state):
       text_particle.modulate = Color(0.25, 0.9, 0.25) if currency_change > 0 else Color(0.9, 0.25, 0.25)
       text_particle.font_size = 20
       text_particle.text = ("+$" if currency_change > 0 else "-$") + str(abs(currency_change))
-      
+
       $UnmanagedContainer.add_child(text_particle)
       text_particle.rect_global_position = $MarginContainer2/MarginContainer/HBoxContainer/Names/CurrencyChangeLocation.global_position - (text_particle.rect_size * text_particle.rect_scale) * 0.5
       text_particle.velocity = Vector2(-3, 0)
@@ -35,19 +39,19 @@ func render_on_screen_message(message, color):
   if self.on_screen_message.modulate.a >= 0.0:
     self.on_screen_message_queue.append([message, color])
   else:
-    self.on_screen_message_timer = 5.0
+    self.on_screen_message_timer = 3.5
     on_screen_message.modulate = Color(color.r, color.g, color.b, 1.0)
     on_screen_message.text = message
-    
+
 func render_on_screen_message_once(message, color):
   if self.on_screen_message.modulate.a >= 0.0:
     if self.on_screen_message.text == message:
       return
-  
+
   for next in on_screen_message_queue:
     if next[0] == message:
       return
-  
+
   render_on_screen_message(message, color)
 
 func _process(dt):
@@ -60,10 +64,17 @@ func _process(dt):
       self.on_screen_message_queue.remove(0)
       self.render_on_screen_message(next[0], next[1])
 
+  if $CenterContainer2.visible:
+    opacity_scalar += dt * 1.5
+    if opacity_scalar - floor(opacity_scalar) < 0.5:
+      $CenterContainer2/VBoxContainer/ClickToContinueRunning.modulate.a = 0.5
+    else:
+      $CenterContainer2/VBoxContainer/ClickToContinueRunning.modulate.a = 1.0
+
 func show_upgrade_ui():
   if !$UpgradeUICenterContainer.visible:
     $UpgradeUICenterContainer.visible = true
-    
+
 func hide_upgrade_ui():
   if $UpgradeUICenterContainer.visible:
     $UpgradeUICenterContainer.visible = false
@@ -74,3 +85,9 @@ func render_energy(energy: String):
     $MarginContainer3/MarginContainer/HBoxContainer/State/Label.modulate = Color.red
   else:
     $MarginContainer3/MarginContainer/HBoxContainer/State/Label.modulate = Color.greenyellow
+
+func render_win_restart():
+  $CenterContainer2.visible = true
+
+func on_win_restart():
+  game_system.reset_run()

@@ -12,6 +12,7 @@ var character_next_drop_off_index: int = 0
 var trains_next_drop_off_index: Array = []
 var world_hud: CanvasLayer = null
 var level_hud: Control = null
+var did_ceremony: bool = false
 
 func _ready():
   for child in self.get_children():
@@ -91,6 +92,12 @@ func _physics_process(dt):
     for i in range(0, len(trains)):
       var train = trains[i]
       train.character_has_upgrade_window = true
+    if character_in_upgrade_area_index == len(drop_offs) - 1 && !did_ceremony:
+      did_ceremony = true
+      game_system.win()
+      self.level_hud.render_on_screen_message("You have cleansed our woods of this poisonous Waste...", Color.greenyellow)
+      self.level_hud.render_on_screen_message("...Thank you.", Color.green)
+      self.level_hud.render_win_restart()
   else:
     level_hud.hide_upgrade_ui()
     for i in range(0, len(trains)):
