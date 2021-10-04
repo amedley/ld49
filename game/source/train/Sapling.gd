@@ -4,6 +4,7 @@ export (int) var movement_speed = 50
 
 var jostle_multiplier: float = 1.0
 var closeness_multiplier: float = 1.0
+var stop_moving: bool = false
 
 func contact_hash(contact):
   if !contact:
@@ -78,7 +79,9 @@ func _physics_process(dt):
     var snap = -contact.normal * snap_length
     self.final_velocity = contact_edge_dir * movement_speed + snap
 
-    if abs(self.jostle_multiplier - 1.0) > 0.00001:
+    if stop_moving:
+      self.final_velocity = Vector2.ZERO
+    elif abs(self.jostle_multiplier - 1.0) > 0.00001:
       # jostling
       self.final_velocity = self.final_velocity * self.jostle_multiplier
     elif abs(self.closeness_multiplier - 1.0) > 0.00001:
@@ -88,3 +91,6 @@ func _physics_process(dt):
     # slide
     if !self.final_velocity.is_equal_approx(Vector2.ZERO):
       self.final_velocity = self.move_and_slide_with_snap(self.final_velocity, snap, Vector2.UP)
+
+    # animation playback speed
+    $AnimationPlayer.playback_speed = clamp((self.final_velocity.length() * 2) / movement_speed, 0.0, 1.0)

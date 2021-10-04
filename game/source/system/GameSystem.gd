@@ -1,6 +1,6 @@
 extends Node
 
-signal on_state_change(id, old_value, new_value)
+signal on_state_change(id, old_state, new_state)
 
 var level_scene = preload("res://source/level/Level.tscn")
 
@@ -16,7 +16,7 @@ func new_state(name, initial):
   return num_states - 1
 
 var currency_id: int = new_state("currency", 0)
-var saplings_id: int = new_state("saplings", 1)
+var saplings_id: int = new_state("saplings", 5)
 var torch_id: int = new_state("torch", 1)
 
 func _ready():
@@ -30,7 +30,7 @@ func interpret(id, value = null):
   if value == null:
     return interpret(id, state[id])
   return self.call(state_interpreter[id], value)
-  
+
 func interpret_currency(value = null):
   if value == null:
     return interpret_currency(state[currency_id])
@@ -47,8 +47,8 @@ func interpret_torch(value = null):
   return value * 42
 
 func change_state(id, amount, clamp_min = 0, clamp_max = 999999999):
-  var old_value = state[id]
-  var new_value = clamp(old_value + amount, clamp_min, clamp_max)
-  if new_value != old_value:
-    state[id] = new_value
-    emit_signal("on_state_change", old_value, new_value)
+  var old_state = state[id]
+  var new_state = clamp(old_state + amount, clamp_min, clamp_max)
+  if new_state != old_state:
+    state[id] = new_state
+    emit_signal("on_state_change", old_state, new_state)
