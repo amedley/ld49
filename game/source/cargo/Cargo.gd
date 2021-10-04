@@ -21,6 +21,10 @@ func is_cargo():
 func combine_forces():
   return $KinematicGravity2D.velocity + throw_velocity
 
+func _ready():
+  self.z_as_relative = false
+  self.z_index = 2
+
 func _physics_process(dt):
   if disabled:
     if !$CollisionShape2D.disabled:

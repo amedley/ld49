@@ -14,6 +14,10 @@ var picked_object_height = 0
 var ghost_enabled: bool = false
 var ghost_time: float = 0.0
 
+func _ready():
+  self.z_as_relative = false
+  self.z_index = 4
+
 func update_movement_velocity():
   self.movement_velocity = Vector2()
 

@@ -14,6 +14,10 @@ var previous_terrain_hash = contact_hash(null)
 var current_terrain_hash = contact_hash(null)
 var final_velocity: Vector2 = Vector2()
 
+func _ready():
+  self.z_as_relative = false
+  self.z_index = 1
+
 func _physics_process(dt):
   var collision_count = get_slide_count()
 

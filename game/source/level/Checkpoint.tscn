@@ -1,13 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/terrain/checkpoint-platform.png" type="Texture" id=1]
 [ext_resource path="res://assets/terrain/checkpoint-beam.png" type="Texture" id=2]
+[ext_resource path="res://source/level/Checkpoint.gd" type="Script" id=3]
 
-[node name="Checkpoint1" type="Sprite"]
+[node name="Checkpoint" type="Sprite"]
 position = Vector2( 2393.76, 115.583 )
 texture = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Beam" type="Sprite" parent="."]
 position = Vector2( -0.47876, -627.743 )
 scale = Vector2( 1, 1.737 )
+z_index = 2
+z_as_relative = false
 texture = ExtResource( 2 )
+
+[node name="TerrainBody" type="StaticBody2D" parent="."]
+collision_layer = 1024
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TerrainBody"]
+polygon = PoolVector2Array( -147, -3, 146, -3, 152, 1, 168, 1, 198, 22, -198, 22, -169, 1, -153, 1 )
