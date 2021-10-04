@@ -5,9 +5,6 @@ var final_velocity: Vector2 = Vector2()
 var throw_velocity: Vector2 = Vector2()
 var initial_throw_speed: float = 500
 
-func is_cargo():
-  return true
-
 func contact_hash(contact):
   if !contact:
     return "-1_-1"
@@ -15,6 +12,9 @@ func contact_hash(contact):
 
 var previous_sapling_hash = contact_hash(null)
 var current_sapling_hash = contact_hash(null)
+
+func is_cargo():
+  return true
 
 func combine_forces():
   return $KinematicGravity2D.velocity + throw_velocity
