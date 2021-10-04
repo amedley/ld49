@@ -5,6 +5,8 @@ var final_velocity: Vector2 = Vector2()
 var throw_velocity: Vector2 = Vector2()
 var initial_throw_speed: float = 500
 
+export (int) var currency_value: float = 0
+
 func contact_hash(contact):
   if !contact:
     return "-1_-1"
@@ -87,15 +89,15 @@ func _physics_process(dt):
     self.final_velocity = self.move_and_slide(self.final_velocity, Vector2.UP)
     did_move = true
   else:
+    throw_velocity = Vector2.ZERO
     if !contact_is_sapling:
       # the contact is not a sapling, check landing
       if contact.normal.y < -0.6:
         # landed, rotate + snap
         rotate = true
         $KinematicGravity2D.reset()
-        throw_velocity = Vector2.ZERO
         self.final_velocity = combine_forces() # should be zero
-        self.final_velocity = self.move_and_slide(contact.collider_velocity, Vector2.UP)
+        self.final_velocity = self.move_and_slide_with_snap(Vector2.ZERO, contact.collider_velocity.rotated(PI*0.5), Vector2.UP)
         did_move = true
       else:
         # not landed, no snap
@@ -107,14 +109,13 @@ func _physics_process(dt):
     else:
       # contact is a sapling
       $KinematicGravity2D.reset()
-      throw_velocity = Vector2.ZERO
       self.final_velocity = combine_forces() # should be zero
 
       # snap if the contact is from above the platform
       if contact.normal.y < -0.08:
         # landed, rotate + snap
         rotate = true
-        self.final_velocity = self.move_and_slide(contact.collider_velocity, Vector2.UP)
+        self.final_velocity = self.move_and_slide_with_snap(Vector2.ZERO, contact.collider_velocity.rotated(PI*0.5), Vector2.UP)
         did_move = true
 
   if rotate:
@@ -122,6 +123,7 @@ func _physics_process(dt):
     self.rotation = lerp(self.rotation, contact_edge_dir.angle(), dt * 2.0)
 
   if !did_move:
+    $KinematicGravity2D.reset()
     self.final_velocity = self.move_and_slide(Vector2.ZERO, Vector2.UP)
 
 func character_pick_up(character):

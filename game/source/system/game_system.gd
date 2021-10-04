@@ -3,6 +3,7 @@ extends Node
 var level_scene = preload("res://source/level/Level.tscn")
 
 var upgrades: Array = [0, 0]
+var currency: int = 0
 
 func start_run():
   get_tree().change_scene_to(level_scene)
