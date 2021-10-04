@@ -693,44 +693,19 @@ collision_polygon_node_path = NodePath("../../TerrainBody2/CollisionPolygon2D")
 modulate = Color( 1, 1, 1, 0.3 )
 polygon = PoolVector2Array( 2077.05, -378.098, 2048.73, -386.183, 1759, -378.597, 2063.45, -496.23, 2104.12, -531.473, 2198.86, -530.933, 2245.29, -496.333, 2293.74, -434.201, 2295.88, -395.559, 2272.85, -381.263, 2217.71, -385.323, 2147.59, -389.624, 2114.65, -370.925 )
 
-[node name="TrainSpawner" type="Node2D" parent="."]
-position = Vector2( 0.473999, 8.04782 )
+[node name="TrainSpawner1" type="Node2D" parent="."]
+position = Vector2( 1797.97, 41.9507 )
 __meta__ = {
 "_editor_description_": "		"
 }
 
 [node name="Checkpoint1" parent="." instance=ExtResource( 11 )]
 
-[node name="JunkBar" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1839.1, -287.714 )
-
-[node name="JunkBarThin" parent="." instance=ExtResource( 16 )]
-modulate = Color( 0.956863, 0.956863, 0.956863, 1 )
-position = Vector2( 2038.65, 82.1228 )
-
-[node name="JunkBoxExtraLarge" parent="." instance=ExtResource( 15 )]
-position = Vector2( 4367.96, -152.208 )
-
-[node name="JunkBoxLarge" parent="." instance=ExtResource( 20 )]
-position = Vector2( 3052.38, 78.6618 )
-
-[node name="JunkBoxMedium" parent="." instance=ExtResource( 18 )]
-position = Vector2( 930.853, -101.215 )
-
-[node name="JunkBoxSmall" parent="." instance=ExtResource( 17 )]
-position = Vector2( 58.5076, -34.7484 )
-
-[node name="JunkBoxSmall2" parent="." instance=ExtResource( 17 )]
-position = Vector2( 612.865, -176.983 )
-
-[node name="JunkLongThin" parent="." instance=ExtResource( 14 )]
-position = Vector2( 4489.49, -70.4018 )
-
 [node name="CharacterBody" parent="." instance=ExtResource( 6 )]
-position = Vector2( 170.23, 58.7835 )
+position = Vector2( 2113.76, -61.3521 )
 
 [node name="CharacterCameraFollower" parent="." instance=ExtResource( 7 )]
-position = Vector2( 170.23, 58.7835 )
+position = Vector2( 2113.76, -61.3521 )
 speed = 3.0
 target_margin = 12.0
 target_path = NodePath("../CharacterBody")
@@ -738,3 +713,31 @@ target_path = NodePath("../CharacterBody")
 [node name="Camera2D" parent="CharacterCameraFollower" instance=ExtResource( 8 )]
 position = Vector2( 229.852, -71.2719 )
 current = true
+
+[node name="CargoGroup1" type="Node2D" parent="."]
+position = Vector2( -252, -76 )
+
+[node name="JunkBar" parent="CargoGroup1" instance=ExtResource( 10 )]
+position = Vector2( 1929.1, -311.714 )
+
+[node name="JunkBarThin" parent="CargoGroup1" instance=ExtResource( 16 )]
+modulate = Color( 0.956863, 0.956863, 0.956863, 1 )
+position = Vector2( 2128.65, 58.1228 )
+
+[node name="JunkBoxExtraLarge" parent="CargoGroup1" instance=ExtResource( 15 )]
+position = Vector2( 4457.96, -176.208 )
+
+[node name="JunkBoxLarge" parent="CargoGroup1" instance=ExtResource( 20 )]
+position = Vector2( 3142.38, 54.6618 )
+
+[node name="JunkBoxMedium" parent="CargoGroup1" instance=ExtResource( 18 )]
+position = Vector2( 1020.85, -125.215 )
+
+[node name="JunkBoxSmall" parent="CargoGroup1" instance=ExtResource( 17 )]
+position = Vector2( 148.508, -58.7484 )
+
+[node name="JunkBoxSmall2" parent="CargoGroup1" instance=ExtResource( 17 )]
+position = Vector2( 702.865, -200.983 )
+
+[node name="JunkLongThin" parent="CargoGroup1" instance=ExtResource( 14 )]
+position = Vector2( 4579.49, -94.4018 )

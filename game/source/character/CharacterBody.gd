@@ -164,7 +164,7 @@ func put_down_picked_object():
   $PickedObjectContainer.remove_child(self.picked_object)
   self.picked_object_parent.add_child(self.picked_object)
   var feet_offset = $FeetOffset.position
-  self.picked_object.position = self.global_position + feet_offset - Vector2(0, self.picked_object_height * 0.5)
+  self.picked_object.global_position = self.global_position + feet_offset - Vector2(0, self.picked_object_height * 0.5)
   self.position -= Vector2(0, self.picked_object_height)
   self.picked_object = null
   self.picked_object_parent = null
