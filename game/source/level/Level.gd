@@ -46,10 +46,10 @@ func _ready():
       child.drop_off_index = len(self.drop_offs)
       self.drop_offs.append(child)
       self.drop_off_exits.append(child.position.x + 250)
-  
+
   self.level_hud.render_on_screen_message("The Waste from the Sky, it poisons our woods...", Color.greenyellow)
   self.level_hud.render_on_screen_message("...guide my Saplings and dispose of it, they will bear the load...", Color.greenyellow)
-  self.level_hud.render_on_screen_message("...press on until you reach the source... Good luck.", Color.greenyellow)
+  self.level_hud.render_on_screen_message("...press on until you reach the Source... Good luck.", Color.greenyellow)
 
 func get_next_drop_off_index(position):
   var result = 0
@@ -76,11 +76,11 @@ func _physics_process(dt):
       if character_just_entered_upgrade_area && !rendered_abandon:
         level_hud.render_on_screen_message_once("Please stay near my saplings...", Color.yellow)
         rendered_abandon = true
-  
+
   $CharacterBody.just_entered_upgrade_area = false
   if push_character_left:
     $CharacterBody.move_and_slide(Vector2(-abs($CharacterBody.final_velocity.x), 0), Vector2.UP)
-  
+
   if character_in_upgrade_area_index > -1 && !push_character_left:
     level_hud.show_upgrade_ui()
   else:
@@ -97,11 +97,11 @@ func on_state_change(id, old_state, new_state):
         if previous.stop_moving:
           previous.stop_moving = false
           next.stop_moving = true
-        
+
   elif id == game_system.torch_id:
     var new_size = game_system.interpret_torch(new_state)
     for train in trains:
       if train.saplings[0].get_node_or_null("Torch") == null:
         train.saplings[0].add_child(train.saplings[0].torch)
       train.saplings[0].torch.size = new_size
-    
+
