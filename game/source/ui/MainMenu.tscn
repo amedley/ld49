@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://theme.tres" type="Theme" id=1]
 [ext_resource path="res://content/fonts/Alice40.tres" type="DynamicFont" id=2]
 [ext_resource path="res://source/ui/MainMenu.gd" type="Script" id=3]
 [ext_resource path="res://content/fonts/Alice20.tres" type="DynamicFont" id=4]
 [ext_resource path="res://content/fonts/Alice16.tres" type="DynamicFont" id=5]
+[ext_resource path="res://assets/misc/titlescreen2.png" type="Texture" id=6]
 
 [node name="MainMenu" type="MarginContainer"]
 margin_right = 1280.0
@@ -17,6 +18,11 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="titlescreen" type="Sprite" parent="."]
+position = Vector2( 549.42, 409.662 )
+scale = Vector2( 0.771924, 0.771924 )
+texture = ExtResource( 6 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 515.0
