@@ -48,7 +48,8 @@ func _ready():
       self.drop_off_exits.append(child.position.x + 250)
   
   self.level_hud.render_on_screen_message("The Waste from the Sky, it poisons our woods...", Color.greenyellow)
-  self.level_hud.render_on_screen_message("...guide my Saplings and dispose of it, they will bear the load.", Color.greenyellow)
+  self.level_hud.render_on_screen_message("...guide my Saplings and dispose of it, they will bear the load...", Color.greenyellow)
+  self.level_hud.render_on_screen_message("...press on until you reach the source... Good luck.", Color.greenyellow)
 
 func get_next_drop_off_index(position):
   var result = 0
@@ -78,7 +79,7 @@ func _physics_process(dt):
   
   $CharacterBody.just_entered_upgrade_area = false
   if push_character_left:
-    $CharacterBody.move_and_slide(Vector2(-$CharacterBody.final_velocity.x, 0), Vector2.UP)
+    $CharacterBody.move_and_slide(Vector2(-abs($CharacterBody.final_velocity.x), 0), Vector2.UP)
   
   if character_in_upgrade_area_index > -1 && !push_character_left:
     level_hud.show_upgrade_ui()

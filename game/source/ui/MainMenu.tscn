@@ -175,7 +175,7 @@ margin_top = 56.0
 margin_right = 107.0
 margin_bottom = 80.0
 custom_fonts/font = ExtResource( 4 )
-text = "G"
+text = "G / SHIFT"
 align = 1
 
 [node name="Label8" type="Label" parent="MarginContainer/HBoxContainer/Inputs"]

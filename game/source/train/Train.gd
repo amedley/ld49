@@ -12,6 +12,7 @@ export (int) var closeness_ease = 40
 
 var closeness_hard_go = 80
 var jostle_hard_stop = 45
+var energy: float = 30
 
 func _ready():
   for i in range(0, train_links):
@@ -24,6 +25,7 @@ func add_sapling(torch = false):
     saplings.append(sapling)
     if !torch:
       sapling.remove_child(sapling.get_node("Torch"))
+    energy += 30
 
 func update_jostling():
   for i in range(0, len(self.saplings) - 1):
@@ -44,4 +46,5 @@ func update_closeness():
 func _physics_process(dt):
   update_jostling()
   update_closeness()
+  self.energy -= dt
 
